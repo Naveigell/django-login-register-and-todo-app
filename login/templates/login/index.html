@@ -1,0 +1,83 @@
+{% load static %}
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport"
+              content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="ie=edge">
+        <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
+        <link rel="stylesheet" href="{% static 'icons/css/fontawesome.min.css' %}">
+        <link rel="stylesheet" href="{% static 'icons/css/all.min.css' %}">
+        <link rel="stylesheet" href="{% static 'icons/css/brands.min.css' %}">
+        <link rel="stylesheet" href="{% static 'icons/css/regular.min.css' %}">
+        <link rel="stylesheet" href="{% static 'icons/css/solid.min.css' %}">
+        <link rel="stylesheet" href="{% static 'icons/css/v4-shims.min.css' %}">
+        <link rel="stylesheet" href="{% static 'loginregister.css' %}">
+        <title>Django Login</title>
+    </head>
+    <body>
+        <div class="container login-container">
+            <div class="row">
+                <div class="col-md-6 login-form-1">
+                    <h3>Login Form</h3>
+                    <form action="/login/" method="post">
+                        {% csrf_token %}
+                        <div class="form-group">
+                            <input type="text" name="email" class="form-control" placeholder="Your Email *" value="" />
+                        </div>
+                        <div class="form-group">
+                            <input type="password" name="password" class="form-control" placeholder="Your Password *" value="" />
+                        </div>
+                        <div class="form-group">
+                            {% if messages %}
+                                {% for message in messages %}
+                                    {% if message.level == 40 and message.tags == "login error" %}
+                                        <div class="alert-danger alert">{{ message }}</div>
+                                    {% endif %}
+                                {% endfor %}
+                            {% endif %}
+                        </div>
+                        <div class="form-group">
+                            <input type="submit" class="btnSubmit" value="Login" />
+                        </div>
+                        <div class="form-group">
+                            <a href="#" class="ForgetPwd">Forget Password?</a>
+                        </div>
+                    </form>
+                </div>
+                <div class="col-md-6 login-form-2">
+                    <h3>Register Form</h3>
+                    <form method="post" action="/register/">
+                        {% csrf_token %}
+                        <div class="form-group">
+                            <input type="text" class="form-control" name="username" placeholder="Your Username *" value="" />
+                        </div>
+                        <div class="form-group">
+                            <input type="text" class="form-control" name="email" placeholder="Your Email *" value="" />
+                        </div>
+                        <div class="form-group">
+                            <input type="password" class="form-control" name="password" placeholder="Your Password *" value="" />
+                        </div>
+
+                        <div class="form-group">
+                            {% if messages %}
+                                {% for message in messages %}
+                                    {% if message.level == 40 and message.tags == "register error" %}
+                                        <div class="alert-danger alert">{{ message }}</div>
+                                    {% endif %}
+                                {% endfor %}
+                            {% endif %}
+                        </div>
+                        <div class="form-group">
+                            <input type="submit" class="btnSubmit" value="Register" />
+                        </div>
+                        <div class="form-group">
+                            <a href="#" class="ForgetPwd" value="Login">Forget Password?</a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>
